@@ -39,16 +39,14 @@ def fetch_owm_data(coords):
     return loads(response.content)
 
 
-def extract_weather(owm, query):
+def extract_weather(owm):
     output = {}
-    if query in owm:
-        for idx in owm[query]:
-            if idx == "weather":
-                if set(['main', 'description']).issubset(idx):
-                    output.update({'main': idx['main']})
-                    output.update({'description': idx['description']})
+    for idx in owm['weather']:
+        if set(['main', 'description']).issubset(idx):
+            output.update({'main': idx['main']})
+            output.update({'description': idx['description']})
 
-    return output
+    return output;
 
 
 if __name__ == "__main__":
@@ -67,8 +65,8 @@ if __name__ == "__main__":
     owm_raw = fetch_owm_data(geo)
 
     dc = u'\u2103'
-    c_weather = extract_weather(owm_raw, 'current')
-    h_weather = extract_weather(owm_raw, 'hourly')
+    current = query_owm(owm_raw, 'current')
+    c_weather = extract_weather(current)
     time = convert_unix(owm_raw['current']['dt'],
                         query_owm(owm_raw, 'timezone'),
                         '%A %w %B %Y at %I:%M %p')
@@ -77,8 +75,9 @@ if __name__ == "__main__":
         print(f"Weather forecast for {geo.get('location')}")
         print(f"{time}\n")
         print(f"Currently: {owm_raw['current']['temp']}{dc}\tFeels Like:{owm_raw['current']['feels_like']}{dc}")
-        print(f"{c_weather}")
+        print(f"{c_weather['main']}: {c_weather['description']}")
     elif args.brief and not args.verbose:  # brief
+        print(f"Currently: {current['temp']}{dc}")
         print(f"Feels Like: {current['feels_like']}{dc}")
     else:  # default
         print(f"{current['temp']}{dc}")
