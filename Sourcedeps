@@ -1,0 +1,5 @@
+ptable : ptable.c
+pascal : pascal.c
+hash256 : LIBS = -lcrypto
+hash256 : hash256.c
+when : when.c
