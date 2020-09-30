@@ -74,7 +74,10 @@ get_file(const char *path)
     rewind(fp);
 
     buf = (char *)malloc((len + 1) * sizeof(char));
-    fread(buf, len, 1, fp);
+    if  (fread(buf, len, 1, fp) == 0) {
+        fprintf(stderr, "Unable to read file\n");
+        exit(1);
+    }
     fclose(fp);
 
     buf[len] = '\0';

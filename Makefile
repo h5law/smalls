@@ -1,7 +1,7 @@
 SHELL   ?= /bin/sh
 
 CC      ?= gcc
-CFLAGS  += -march=native -O2 -pipe
+CFLAGS  += -march=native -O3 -pipe
 CFLAGS  += -std=c11 -Wpedantic -Wall -Wextra -I$(PREFIX)/include
 LDFLAGS	:= -L$(PREFIX)/lib
 

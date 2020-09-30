@@ -23,7 +23,7 @@ void usage(char *prog) {
 int times(int a, int b) { return a * b; }
 int square(int a, int b) { return (a * a) + (2 * a * b) + (b * b); }
 
-const static struct {
+const struct {
     const char *name;
     int (*f)(int, int);
 } function_map [] = {
@@ -41,8 +41,10 @@ void printTable(int n, int (*f)(int, int)) {
 }
 
 int call_function(const char *name, int width) {
-    for (int i = 0; i < (sizeof(function_map) / sizeof(function_map[0])); i++) {
-        if (!strncmp(function_map[i].name, name, sizeof(name)) && function_map[i].f) {
+    int len_name;
+    len_name = sizeof(name);
+    for (long unsigned int i = 0; i < (sizeof(function_map) / sizeof(function_map[0])); i++) {
+        if (!strncmp(function_map[i].name, name, len_name) && function_map[i].f) {
             printTable(width, function_map[i].f);
             return 0;
         }

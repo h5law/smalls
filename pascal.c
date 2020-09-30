@@ -12,7 +12,7 @@
 
 void print_coef(int rows, int start) {
     int coef = 1;
-    int i, space, j;
+    int i, j;
     for (i = start; i < rows; i++) {
         printf("%4d: ", i);
         for (j = 0; j <= i; j++) {
