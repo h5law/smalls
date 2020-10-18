@@ -1,8 +1,9 @@
 SHELL   ?= /bin/sh
 
 CC      ?= gcc
-CFLAGS  += -march=native -O3 -pipe
-CFLAGS  += -std=c11 -Wpedantic -Wall -Wextra -I$(PREFIX)/include
+CFLAGS  += -march=native -O2 -pipe
+CFLAGS  += -std=c99 -Wpedantic -Wall -Wextra -I$(PREFIX)/include
+CFLAGS  += -D_POSIX_C_SOURCE=200809L
 LDFLAGS	:= -L$(PREFIX)/lib
 
 PREFIX    ?= /usr/local
